@@ -1,7 +1,11 @@
 package main
 
+import (
+	"github.com/Noofbiz/StaticFileServer/server"
+)
+
 func main() {
 	path, port := readConfig()
 
-	//SetupServer(path, port)
+	server.SetupServer(path, port)
 }

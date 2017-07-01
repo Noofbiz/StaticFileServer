@@ -1,16 +1,13 @@
+{{"index"}}
 <!doctype html>
 <html>
     <head>
-        <meta charset="UTF-8" />
-        <title>hello there!</title>
         <link rel="stylesheet" href="static/css/sample.css" />
-
     </head>
     <body>
-
       <p> Hello world! </p>
 
       <script src="/static/js/sample.js"></script>
-
     </body>
 </html>
+{{end}}
