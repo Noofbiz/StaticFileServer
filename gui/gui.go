@@ -27,7 +27,7 @@ func StartGUI(port string) {
 	}
 
 	var w *astilectron.Window
-	if w, err = a.NewWindow("http://localhost"+port, &astilectron.WindowOptions{
+	if w, err = a.NewWindow("http://localhost"+port+"/gui", &astilectron.WindowOptions{
 		Center: astilectron.PtrBool(true),
 		Height: astilectron.PtrInt(600),
 		Width:  astilectron.PtrInt(800),
