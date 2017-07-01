@@ -11,8 +11,13 @@ import (
 func readConfig() (path, port string) {
 	c := make(map[string]interface{})
 	var err error
+	var pwd string
+	if pwd, err = os.Getwd(); err != nil {
+		log.Fatalf("Unable to get working directory. Error: %v", err.Error())
+	}
+
 	var f *os.File
-	if f, err = os.Open("/configuration/conf.json"); err != nil {
+	if f, err = os.Open(filepath.Join(pwd, "configuration", "conf.json")); err != nil {
 		log.Fatalf("Unable to open configuration file. Error: %v", err.Error())
 	}
 	defer f.Close()
@@ -26,10 +31,6 @@ func readConfig() (path, port string) {
 	}
 
 	if c["path"] == "default" {
-		var pwd string
-		if pwd, err = os.Getwd(); err != nil {
-			log.Fatalf("Unable to get working directory. Error: %v", err.Error())
-		}
 		path = filepath.Join(pwd, "static")
 	} else {
 		path = c["path"].(string)
