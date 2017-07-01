@@ -8,7 +8,7 @@ import (
 func main() {
 	path, port := readConfig()
 
-	server.SetupServer(path, port)
+	srv := server.SetupServer(path, port)
 
-	gui.StartGUI(port)
+	gui.StartGUI(srv)
 }

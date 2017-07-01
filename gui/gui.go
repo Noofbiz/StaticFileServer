@@ -2,13 +2,14 @@ package gui
 
 import (
 	"log"
+	"net/http"
 	"os"
 
 	astilectron "github.com/asticode/go-astilectron"
 )
 
 //StartGUI starts up the astillectron window system.
-func StartGUI(port string) {
+func StartGUI(srv *http.Server) {
 	p, _ := os.Getwd()
 	var a *astilectron.Astilectron
 	var err error
@@ -27,7 +28,7 @@ func StartGUI(port string) {
 	}
 
 	var w *astilectron.Window
-	if w, err = a.NewWindow("http://localhost"+port+"/gui", &astilectron.WindowOptions{
+	if w, err = a.NewWindow(p+"/gui/assets/html/gui.html", &astilectron.WindowOptions{
 		Center: astilectron.PtrBool(true),
 		Height: astilectron.PtrInt(600),
 		Width:  astilectron.PtrInt(800),
