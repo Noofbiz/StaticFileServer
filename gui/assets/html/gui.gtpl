@@ -1,4 +1,4 @@
-{{"index"}}
+{{define "index"}}
 <!doctype html>
 <html>
     <head>
