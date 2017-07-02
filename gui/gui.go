@@ -10,6 +10,8 @@ import (
 	astilectron "github.com/asticode/go-astilectron"
 )
 
+//go:generate go-bindata -pkg $GOPACKAGE -o vendor.go ../vendor/
+
 //StartGUI starts up the astillectron window system.
 func StartGUI(path, port string) {
 	p, _ := os.Getwd()
@@ -17,11 +19,12 @@ func StartGUI(path, port string) {
 	var err error
 	if a, err = astilectron.New(astilectron.Options{
 		AppName:            "Static File Server",
-		AppIconDefaultPath: p + "/gui/assets/icon.png",
+		AppIconDefaultPath: p + "/assets/icon.png",
 		BaseDirectoryPath:  p,
 	}); err != nil {
 		log.Fatalf("Failed to create new astillectron. Error: %v", err.Error())
 	}
+	a.SetProvisioner(astilectron.NewDisembedderProvisioner(Asset, "../vendor/astilectron-v"+astilectron.VersionAstilectron+".zip", "../vendor/electron-v"+astilectron.VersionElectron+".zip"))
 	defer a.Close()
 	a.HandleSignals()
 
@@ -30,9 +33,9 @@ func StartGUI(path, port string) {
 	}
 
 	var w *astilectron.Window
-	if w, err = a.NewWindow(p+"/gui/assets/html/gui.html", &astilectron.WindowOptions{
+	if w, err = a.NewWindow(p+"/assets/html/gui.html", &astilectron.WindowOptions{
 		Center: astilectron.PtrBool(true),
-		Height: astilectron.PtrInt(600),
+		Height: astilectron.PtrInt(400),
 		Width:  astilectron.PtrInt(800),
 	}); err != nil {
 		log.Fatalf("Failed to create new window. Error: %v", err.Error())

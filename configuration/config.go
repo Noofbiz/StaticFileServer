@@ -19,7 +19,7 @@ func ReadConfig() (path, port string) {
 	}
 
 	var f *os.File
-	if f, err = os.Open(filepath.Join(pwd, "configuration", "conf.json")); err != nil {
+	if f, err = os.Open(filepath.Join(pwd, "assets", "conf.json")); err != nil {
 		log.Fatalf("Unable to open configuration file. Error: %v", err.Error())
 	}
 	defer f.Close()
@@ -33,7 +33,7 @@ func ReadConfig() (path, port string) {
 	}
 
 	if c["path"] == "default" {
-		path = filepath.Join(pwd, "static")
+		path = filepath.Join(pwd, "assets", "static")
 	} else {
 		path = c["path"].(string)
 	}
@@ -53,24 +53,24 @@ func UpdateConfig(path, port string) {
 		log.Fatalf("Unable to get working directory. Error: %v", err.Error())
 	}
 
-	if err = os.Remove(filepath.Join(pwd, "configuration", "conf.json")); err != nil {
+	if err = os.Remove(filepath.Join(pwd, "assets", "conf.json")); err != nil {
 		log.Fatalf("Unable to remove conf file. Error: %v", err.Error())
 	}
 
 	var f *os.File
-	if f, err = os.Create(filepath.Join(pwd, "configuration", "conf.json")); err != nil {
-		UpdateConfig(filepath.Join(pwd, "static"), "8080")
+	if f, err = os.Create(filepath.Join(pwd, "assets", "conf.json")); err != nil {
+		UpdateConfig(filepath.Join(pwd, "assets", "static"), "8080")
 		log.Fatalf("Unable to create new configuration file. Error: %v", err.Error())
 	}
 	defer f.Close()
 
 	var buf []byte
 	if buf, err = json.Marshal(c); err != nil {
-		UpdateConfig(filepath.Join(pwd, "static"), "8080")
+		UpdateConfig(filepath.Join(pwd, "assets", "static"), "8080")
 		log.Fatalf("Unable to marshal config. Error: %v", err.Error())
 	}
 	if _, err = f.Write(buf); err != nil {
-		UpdateConfig(filepath.Join(pwd, "static"), "8080")
+		UpdateConfig(filepath.Join(pwd, "assets", "static"), "8080")
 		log.Fatalf("Unable to write to config. Error: %v", err.Error())
 	}
 }
