@@ -15,3 +15,12 @@
 
 # Astillectron vendor files
 vendor/
+
+# Windows builds
+*.msi
+
+# go-msi templates for building msi
+templates/
+
+# vendor turned into go with go-bindata
+gui/vendor.go
