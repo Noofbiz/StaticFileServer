@@ -1,0 +1,42 @@
+{
+  "product": "Static File Server",
+  "company": "Noofbiz",
+  "license": "LICENSE",
+  "upgrade-code": "96f7b269-dcbf-4dbf-b905-ce3f90b4001c",
+  "files": {
+    "guid": "aea2400d-39d5-4300-8cdb-8baea218da98",
+    "items": [
+      "sfs.exe"
+    ]
+  },
+  "directories": [
+    "assets"
+  ],
+  "env": {
+    "guid": "217fa9d7-df97-49ad-84c5-3e53d7383d5a",
+    "vars": [
+      {
+        "name": "PATH",
+        "value": "[INSTALLDIR]",
+        "permanent": "no",
+        "system": "no",
+        "action": "set",
+        "part": "last"
+      }
+    ]
+  },
+  "shortcuts": {
+    "guid": "2a657a40-5db1-4b74-9cfb-09bdc753024a",
+    "items": [
+      {
+        "name": "Static File Server",
+        "description": "Easy webserver for html/css/js projects without the headache",
+        "target": "[INSTALLDIR]\\sfs.exe",
+        "wdir": "INSTALLDIR",
+        "arguments": "",
+        "icon": ""
+      }
+    ]
+  },
+  "choco": {}
+}
