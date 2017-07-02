@@ -1,9 +1,54 @@
 <!doctype html>
 <html>
     <head>
-
+      <style>
+        html, body {
+          background-color: #2b3e50;
+          color: #ebebeb;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+        }
+        h1, p {
+          text-align: center;
+        }
+      </style>
     </head>
     <body>
-      <p> Hello world! </p>
+      <h1> Your web server is up and running! </h1> <br />
+      <p>Serving on port:</p>
+      <p><input id="port" type="number" value="80" /><input id="portbtn" type="button" value="Change" /></p>
+      <p>Serving:</p><p><span id="pathStr"></span> <input id="path" type="button" value="Change" /></p>
+
+      <script>
+      var path;
+      var port;
+      var separator = "<a-o>"
+      document.addEventListener('astilectron-ready', function() {
+        astilectron.listen(function(message) {
+          document.querySelector('#pathStr').innerHTML = message[0];
+          path = message[0];
+          document.querySelector('#port').setAttribute("value", message[1]);
+          port = message[1];
+        });
+        document.querySelector("#path").addEventListener('click', function() {
+            astilectron.showOpenDialog({properties: ['openDirectory'], title: "Change Path to Serve"}, function(folder) {
+            document.querySelector('#pathStr').innerHTML = folder[0];
+            path = folder[0];
+            if (path == undefined) {
+              path = "default";
+            }
+            astilectron.send(path + separator + port);
+          })
+        });
+        document.querySelector("#portbtn").addEventListener('click', function(){
+          port = document.querySelector("#port").value;
+          if (port == "") {
+            port = "8080";
+          }
+          astilectron.send(path + separator + port);
+        });
+      })
+      </script>
     </body>
 </html>

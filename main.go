@@ -1,14 +1,15 @@
 package main
 
 import (
+	"github.com/Noofbiz/StaticFileServer/configuration"
 	"github.com/Noofbiz/StaticFileServer/gui"
 	"github.com/Noofbiz/StaticFileServer/server"
 )
 
 func main() {
-	path, port := readConfig()
+	path, port := configuration.ReadConfig()
 
-	srv := server.SetupServer(path, port)
+	server.SetupServer(path, port)
 
-	gui.StartGUI(srv)
+	gui.StartGUI(path, port)
 }
