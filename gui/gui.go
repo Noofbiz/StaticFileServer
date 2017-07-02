@@ -3,6 +3,7 @@ package gui
 import (
 	"log"
 	"os"
+	"path/filepath"
 	"strings"
 
 	"github.com/Noofbiz/StaticFileServer/configuration"
@@ -17,7 +18,7 @@ func StartGUI(path, port string) {
 	var err error
 	if a, err = astilectron.New(astilectron.Options{
 		AppName:            "Static File Server",
-		AppIconDefaultPath: p + "/gui/assets/icon.png",
+		AppIconDefaultPath: filepath.Join(p, "assets", "icon.png"),
 		BaseDirectoryPath:  p,
 	}); err != nil {
 		log.Fatalf("Failed to create new astillectron. Error: %v", err.Error())
@@ -30,7 +31,7 @@ func StartGUI(path, port string) {
 	}
 
 	var w *astilectron.Window
-	if w, err = a.NewWindow(p+"/gui/assets/html/gui.html", &astilectron.WindowOptions{
+	if w, err = a.NewWindow(filepath.Join(p, "assets", "html", "gui.html"), &astilectron.WindowOptions{
 		Center: astilectron.PtrBool(true),
 		Height: astilectron.PtrInt(600),
 		Width:  astilectron.PtrInt(800),
