@@ -22,3 +22,7 @@ templates/
 
 # msi files
 *.msi
+
+# because I like to build into a file called a
+a
+a.exe

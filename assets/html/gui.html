@@ -25,7 +25,7 @@
       var port;
       var separator = "<a-o>"
       document.addEventListener('astilectron-ready', function() {
-        astilectron.listen(function(message) {
+        astilectron.onMessage(function(message) {
           document.querySelector('#pathStr').innerHTML = message[0];
           path = message[0];
           document.querySelector('#port').setAttribute("value", message[1]);
@@ -38,7 +38,7 @@
             if (path == undefined) {
               path = "default";
             }
-            astilectron.send(path + separator + port);
+            astilectron.sendMessage(path + separator + port);
           })
         });
         document.querySelector("#portbtn").addEventListener('click', function(){
@@ -46,7 +46,7 @@
           if (port == "") {
             port = "8080";
           }
-          astilectron.send(path + separator + port);
+          astilectron.sendMessage(path + separator + port);
         });
       })
       </script>

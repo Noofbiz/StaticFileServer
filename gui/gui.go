@@ -43,11 +43,11 @@ func StartGUI(path, port string) {
 	}
 
 	msg := []string{path, port}
-	w.Send(msg)
+	w.SendMessage(msg)
 
-	w.On(astilectron.EventNameWindowEventMessage, func(e astilectron.Event) (deleteListener bool) {
+	w.OnMessage(func(e *astilectron.EventMessage) interface{} {
 		var m string
-		if err = e.Message.Unmarshal(&m); err != nil {
+		if err = e.Unmarshal(&m); err != nil {
 			log.Fatalf("Recieved improper message from gui. Error: %v", err.Error())
 		}
 		pathport := strings.Split(m, "<a-o>")
@@ -55,7 +55,7 @@ func StartGUI(path, port string) {
 		port = pathport[1]
 		configuration.UpdateConfig(path, port)
 		server.ChangeRoot(path, port)
-		return
+		return nil
 	})
 
 	a.Wait()
